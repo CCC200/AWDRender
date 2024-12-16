@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	
+	<meta title="AWDViewer" package="com.ccc200.awdviewer" version="1.0.0" />
+	<app main="Main" file="AWDViewer" path="build" />
+	
+	<window background="0x000000" orientation="landscape" />
+	<window width="1280" height="720" fps="60" if="desktop" />
+	
+	<source path="src" />
+	
+	<haxelib name="away3d" />
+	
+	<assets path="assets" />
+	
+</project>
