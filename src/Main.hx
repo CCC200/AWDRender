@@ -8,6 +8,9 @@ import openfl.Vector;
 import openfl.events.MouseEvent;
 import openfl.events.KeyboardEvent;
 import openfl.ui.Keyboard;
+import openfl.Assets;
+import openfl.display.BitmapData;
+import openfl.utils.ByteArray;
 
 import away3d.containers.View3D;
 import away3d.lights.DirectionalLight;
@@ -22,14 +25,20 @@ import away3d.library.assets.IAsset;
 import away3d.library.assets.Asset3DType;
 import away3d.materials.TextureMaterial;
 import away3d.utils.Cast;
-import openfl.display.BitmapData;
+import away3d.debug.AwayFPS;
 
-import openfl.Assets;
+import haxe.ui.HaxeUIApp;
+
+import LoadEvent;
 
 class Main extends Sprite
 {
+	//ui
+	var app:HaxeUIApp;
+	
 	//engine variables
 	var _view:View3D;
+	var _debug:AwayFPS;
 	
 	//light objects
 	var _light:DirectionalLight;
@@ -51,7 +60,8 @@ class Main extends Sprite
 	public function new()
 	{
 		super();
-		init();
+		app = new HaxeUIApp();
+		app.ready(init);
 	}
 	
 	/**
@@ -59,6 +69,10 @@ class Main extends Sprite
 	*/
 	private function init():Void
 	{
+		var menu:FileMenu = new FileMenu();
+		menu.addEventListener(LoadEvent.LOAD_SCENE, onLoadScene);
+		app.addComponent(menu);
+		app.start();
 		initEngine();
 		initListeners();
 	}
@@ -80,7 +94,26 @@ class Main extends Sprite
 		_view.camera.lens.far = 100000;
 		
 		//stats
-		this.addChild(new away3d.debug.AwayFPS(_view, 10, 10, 0xffffff, 1));
+		_debug = new AwayFPS(_view, 10, 45, 0xffffff, 1);
+		this.addChild(_debug);
+	}
+
+	private function resetEngine()
+	{
+		this.removeChild(_view);
+		this.removeChild(_debug);
+		initEngine();
+	}
+
+	/**
+		UI interaction listeners
+	**/
+	private function onLoadScene(e:LoadEvent)
+	{
+		var loader:Loader3D = new Loader3D();
+		loader.loadData(e.data);
+		resetEngine();
+		_view.scene.addChild(loader);
 	}
 	
 	/**
@@ -101,10 +134,6 @@ class Main extends Sprite
 		addEventListener(Event.ENTER_FRAME, onEnterFrame);
 		
 		Asset3DLibrary.enableParser(AWDParser);
-
-		var loader:Loader3D = new Loader3D();
-		loader.loadData(Assets.getBytes('assets/test.awd'));
-		_view.scene.addChild(loader);
 	}
 	
 	/**
@@ -195,4 +224,3 @@ class Main extends Sprite
 	}
 
 }
-

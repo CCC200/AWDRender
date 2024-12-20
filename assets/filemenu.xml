@@ -1,0 +1,6 @@
+<menubar width="100%">
+    <menu text="File">
+        <menuitem id="open" text="Open AWD                Ctrl+O" />
+        <menuitem id="exit" text="Exit                          Ctrl+W" />
+    </menu>
+</menubar>

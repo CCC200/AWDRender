@@ -9,7 +9,11 @@
 	
 	<source path="src" />
 	
+	<haxelib name="openfl" />
+    <haxelib name="actuate" />
 	<haxelib name="away3d" />
+	<haxelib name="haxeui-core" />
+    <haxelib name="haxeui-openfl" />
 	
 	<assets path="assets" />
 	
