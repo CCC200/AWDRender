@@ -20,12 +20,16 @@ class FileMenu extends MenuBar {
 
     public function new() {
         super();
+        awd.addEventListener(Event.SELECT, onFileSelect);
+    }
+
+    public function triggerFileOpen() {
+        awd.browseForOpen("Open AWD", [filter]);
     }
 
     @:bind(open, MouseEvent.CLICK)
     private function onMenuOpen(e:MouseEvent) {
-        awd.browseForOpen("Open AWD", [filter]);
-        awd.addEventListener(Event.SELECT, onFileSelect);
+        triggerFileOpen();
     }
 
     private function onFileSelect(e:Event) {

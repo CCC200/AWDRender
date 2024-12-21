@@ -35,6 +35,7 @@ class Main extends Sprite
 {
 	//ui
 	var app:HaxeUIApp;
+	var menu:FileMenu;
 	
 	//engine variables
 	var _view:View3D;
@@ -69,7 +70,7 @@ class Main extends Sprite
 	*/
 	private function init():Void
 	{
-		var menu:FileMenu = new FileMenu();
+		menu = new FileMenu();
 		menu.addEventListener(LoadEvent.LOAD_SCENE, onLoadScene);
 		app.addComponent(menu);
 		app.start();
@@ -188,7 +189,8 @@ class Main extends Sprite
 		switch(e.keyCode)
 		{
 			case Keyboard.W:
-				camera_z(1);
+				if(e.ctrlKey) Sys.exit(0);
+				else camera_z(1);
 			case Keyboard.S:
 				camera_z(-1);
 			case Keyboard.A:
@@ -202,6 +204,8 @@ class Main extends Sprite
 			case Keyboard.SHIFT:
 				_movespeed = 500;
 				_turnspeed = 25;
+			case Keyboard.O:
+				if(e.ctrlKey) menu.triggerFileOpen();
 		}
 	}
 
