@@ -40,6 +40,8 @@ class Main extends Sprite
 	//engine variables
 	var _view:View3D;
 	var _debug:AwayFPS;
+	var _loader:Loader3D;
+	var _init:Bool = false;
 	
 	//light objects
 	var _light:DirectionalLight;
@@ -90,8 +92,7 @@ class Main extends Sprite
 		_view.backgroundColor = 0x1e2125;
 		
 		//setup camera
-		_view.camera.z = -2000;
-		_view.camera.y += 300;
+		resetCamera();
 		_view.camera.lens.far = 100000;
 		
 		//stats
@@ -99,11 +100,10 @@ class Main extends Sprite
 		this.addChild(_debug);
 	}
 
-	private function resetEngine()
+	private function resetCamera()
 	{
-		this.removeChild(_view);
-		this.removeChild(_debug);
-		initEngine();
+		_view.camera.moveTo(0, 300, -2000);
+		_view.camera.rotateTo(0, 0, 0);
 	}
 
 	/**
@@ -111,10 +111,12 @@ class Main extends Sprite
 	**/
 	private function onLoadScene(e:LoadEvent)
 	{
-		var loader:Loader3D = new Loader3D();
-		loader.loadData(e.data);
-		resetEngine();
-		_view.scene.addChild(loader);
+		if(_init) _view.scene.removeChild(_loader);
+		_loader = new Loader3D();
+		_loader.loadData(e.data);
+		_view.scene.addChild(_loader);
+		resetCamera();
+		_init = true;
 	}
 	
 	/**
