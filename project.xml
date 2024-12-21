@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
 	
-	<meta title="AWDViewer" package="com.ccc200.awdviewer" version="1.0.0" />
-	<app main="Main" file="AWDViewer" path="build" />
+	<meta title="AWDRender" package="com.zeroip.awdrender" version="1.0.0" />
+	<app main="Main" file="AWDRender" path="build" />
 	<icon path="assets/fileicon_AwayBuilder_256.png" />
 	
 	<window background="0x000000" orientation="landscape" />
@@ -15,7 +15,5 @@
 	<haxelib name="away3d" />
 	<haxelib name="haxeui-core" />
     <haxelib name="haxeui-openfl" />
-	
-	<assets path="assets" />
-	
+
 </project>
