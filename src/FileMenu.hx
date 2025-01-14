@@ -11,6 +11,7 @@ import openfl.net.FileFilter;
 import openfl.utils.ByteArray;
 
 import LoadEvent;
+import CameraEvent;
 
 @:build(haxe.ui.ComponentBuilder.build("assets/filemenu.xml"))
 class FileMenu extends MenuBar {
@@ -48,6 +49,13 @@ class FileMenu extends MenuBar {
     @:bind(exit, MouseEvent.CLICK)
     private function onMenuExit(e:MouseEvent) {
         Sys.exit(0);
+    }
+
+    @:bind(reset, MouseEvent.CLICK)
+    private function onMenuReset(e:MouseEvent) {
+        // dispatch for main
+        var event:CameraEvent = new CameraEvent(CameraEvent.CAMERA_RESET);
+        dispatchEvent(event);
     }
     
 }

@@ -74,6 +74,7 @@ class Main extends Sprite
 	{
 		menu = new FileMenu();
 		menu.addEventListener(LoadEvent.LOAD_SCENE, onLoadScene);
+		menu.addEventListener(CameraEvent.CAMERA_RESET, onCameraReset);
 		app.addComponent(menu);
 		app.start();
 		initEngine();
@@ -117,6 +118,11 @@ class Main extends Sprite
 		_view.scene.addChild(_loader);
 		resetCamera();
 		_init = true;
+	}
+
+	private function onCameraReset(e:CameraEvent)
+	{
+		resetCamera();
 	}
 	
 	/**
@@ -208,6 +214,8 @@ class Main extends Sprite
 				_turnspeed = 25;
 			case Keyboard.O:
 				if(e.ctrlKey) menu.triggerFileOpen();
+			case Keyboard.R:
+				if(e.ctrlKey) resetCamera();
 		}
 	}
 

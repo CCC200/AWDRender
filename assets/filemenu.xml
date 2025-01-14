@@ -3,4 +3,7 @@
         <menuitem id="open" text="Open AWD                Ctrl+O" />
         <menuitem id="exit" text="Exit                          Ctrl+W" />
     </menu>
+    <menu text="View">
+        <menuitem id="reset" text="Reset Camera           Ctrl+R" />
+    </menu>
 </menubar>
